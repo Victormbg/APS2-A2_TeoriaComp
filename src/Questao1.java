@@ -4,9 +4,6 @@ import javax.swing.JOptionPane;
 
 public class Questao1 {
 	public static void main(String[] args) {
-		// List<String> listEstadoAtual = new ArrayList<String>();
-		// List<String> listCaractere = new ArrayList<String>();
-		// List<String> listEstadoSeguinta = new ArrayList<String>();
 
 		// Conjunto de Estados Finitos
 
@@ -39,14 +36,12 @@ public class Questao1 {
 
 		// Conjunto de Estados Finais
 
-		// Transicao transicao = new Transicao();
-
 		ArrayList<Transicao> listaTransicoes = new ArrayList<>();
 
 		while (true) {
 
 			String transicoesEstados = JOptionPane
-					.showInputDialog("Entre com as transiÃ§Ãµes de estados e para seguir basta clicar em cancelar");
+					.showInputDialog("Entre com as transições de estados e para seguir basta clicar em cancelar");
 
 			if (transicoesEstados == null || transicoesEstados.equals("")) {
 				break;
@@ -149,7 +144,7 @@ public class Questao1 {
 	public static String montaExibicao(String string) {
 		String exibicao = "";
 		exibicao += " ===================================================\n";
-		exibicao += "A string " + string + " Ã© aceito pelo AFD";
+		exibicao += "A string " + string + " é aceito pelo AFD";
 		exibicao += "\n ===================================================";
 		return exibicao;
 	}
@@ -157,7 +152,7 @@ public class Questao1 {
 	public static String montaExibicaoErro(String string) {
 		String exibicao = "";
 		exibicao += " ===================================================\n";
-		exibicao += "A string " + string + " nÃ£o Ã© aceito pelo AFD";
+		exibicao += "A string " + string + " não é aceito pelo AFD";
 		exibicao += "\n ===================================================";
 		return exibicao;
 	}
