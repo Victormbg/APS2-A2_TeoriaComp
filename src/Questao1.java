@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -37,11 +38,27 @@ public class Questao1 {
 		// Conjunto de Estados Finais
 
 		ArrayList<Transicao> listaTransicoes = new ArrayList<>();
+		String mostrar = null;
 
 		while (true) {
 
-			String transicoesEstados = JOptionPane
-					.showInputDialog("Entre com as transições de estados e para seguir basta clicar em cancelar");
+			if (listaTransicoes.isEmpty()) {
+				mostrar = "Lista Vazia";
+				// System.out.println(mostrar);
+			} else {
+				String[] novaLista = new String[listaTransicoes.size()];
+				for (int test = 0; test < listaTransicoes.size(); test++) {
+					String estadoAtual = listaTransicoes.get(test).getEstadoAtual();
+					String caractere = listaTransicoes.get(test).getCaractere();
+					String estadoSeguinte = listaTransicoes.get(test).getEstadoSeguinte();
+					novaLista[test] = estadoAtual + caractere + estadoSeguinte;
+				}
+				mostrar = Arrays.toString(novaLista);
+				// System.out.println(Arrays.toString(novaLista) + listaTransicoes.size());
+			}
+
+			String transicoesEstados = JOptionPane.showInputDialog(
+					"Entre com as transições de estados: \n" + mostrar + "\nPara seguir basta clicar em `cancelar`");
 
 			if (transicoesEstados == null || transicoesEstados.equals("")) {
 				break;
@@ -50,8 +67,9 @@ public class Questao1 {
 
 				array = transicoesEstados.split(",");
 
+				Transicao transicao = new Transicao();
+
 				for (int i = 0; i < array.length; i++) {
-					Transicao transicao = new Transicao();
 					transicao.setEstadoAtual(array[0]);
 					transicao.setCaractere(array[1]);
 					transicao.setEstadoSeguinte(array[2]);
