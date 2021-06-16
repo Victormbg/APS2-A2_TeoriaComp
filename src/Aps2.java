@@ -30,7 +30,7 @@ public class Aps2 {
 		// Conjunto de Estados Finais
 
 		String conjuntoEstadosFinais = JOptionPane
-				.showInputDialog("Entre com um conjunto de estados finais formada por 1 estado final:");
+				.showInputDialog("Entre com um conjunto de estados finais:\n" + "OBS: Formada por 1 estado final:");
 
 		String arrayConjuntoEstadosFinais[] = new String[100];
 
@@ -97,42 +97,54 @@ public class Aps2 {
 
 		String Proximo = null;
 
+		// EXECUTA TESTE 1 - PRIMEIRO ESTADO
 		for (int i = 0; i < arrayAlfabeto.length; i++) {
-
-			System.out.println("Primeira letra do alfabeto: " + arrayAlfabeto[i] + " Estado: " + estadoInicial + "\n");
 
 			String letra = arrayAlfabeto[i];
 
-			// EXECUTA PRIMEIRO
+			System.out.println("TESTE 1 - Letra do alfabeto: " + letra + " Estado: " + estadoInicial + "\n");
+
 			for (int j = 0; j < listaTransicoes.size(); j++) {
 
 				String estadoAtual = listaTransicoes.get(j).getEstadoAtual();
 				String caractere = listaTransicoes.get(j).getCaractere();
 				String estadoSeguinte = listaTransicoes.get(j).getEstadoSeguinte();
 
-				System.out.println("TESTE 2 NAO ENCONTRO LIGACAO: " + i + " " + estadoAtual + " " + caractere + " "
-						+ estadoSeguinte + "\n");
+				System.out.println("TESTE 1 - CASO " + i + " VALORES DA LISTA DE TRANSICOES " + estadoAtual + " "
+						+ caractere + " " + estadoSeguinte + "\n");
+
+				System.out
+						.println("TESTE 1 - CASO " + i + " VALORES PARA ANALISAR " + estadoAtual + " " + letra + "\n");
+
+				System.out.println("TESTE 1 - CASO " + i + " ESTADO ATUAL DO PROXIMO: " + estadoAtual + " "
+						+ estadoInicial + "\n");
+
+				System.out.println("TESTE 1 - CASO " + i + " LETRA DO PROXIMO: " + caractere + " " + letra + "\n");
 
 				if (estadoInicial.equals(estadoAtual) && caractere.equals(letra)) {
 
-					System.out.println("TESTE 3 ENCONTROU UM LIGAÇAO:" + " " + estadoAtual + " " + caractere + " "
+					System.out.println("TESTE 1 - ENCONTROU UM LIGAÇAO: " + estadoAtual + " " + caractere + " "
 							+ estadoSeguinte + "\n");
 
 					Proximo = estadoSeguinte;
 
 					contador++;
 
-					System.out.println("ACIONANDO O CONTADOR DE LIGACAO NO TESTE3: " + contador + "\n");
+					System.out.println("TESTE 1 - ACIONANDO O CONTADOR: " + contador
+							+ " armazenando em Proximo o estado: " + Proximo + "\n");
+
+					break;
 
 				} else {
-					// System.out.println(contador);
+					System.out.println("TESTE 1 - NAO ENCONTROU UM LIGAÇAO: " + estadoAtual + " " + caractere + " "
+							+ estadoSeguinte + "\n");
 				}
 			}
 
-			// VERIFICAR CONTADOR E PROXIMO
+			// VERIFICAR CONTADOR E PROXIMO ESTADO
 			if (contador == 1 && Proximo == null) {
 
-				System.out.println("TRUE - AFD");
+				System.out.println("TESTE 1 - TRUE - AFD");
 				situacao = true;
 
 			} else if (contador == 1 && Proximo != null) {
@@ -143,13 +155,11 @@ public class Aps2 {
 
 					letraProximo = arrayAlfabeto[novoi];
 
-					System.out.println(
-							"Primeira letra do alfabeto TESTE11: " + letraProximo + " Estado: " + Proximo + "\n");
+					System.out.println("TESTE 2 - Letra do alfabeto: " + letraProximo + " Estado: " + Proximo + "\n");
 
-					// String letra2 = arrayAlfabeto[novoi];
 					int contadorInterno = 0;
 
-					System.out.println("SITUACAO INTERNA: " + situacaoInterna + "\n");
+					System.out.println("TESTE 2 - SITUACAO INTERNA: " + situacaoInterna + "\n");
 
 					if (situacaoInterna == false) {
 						for (int novoj = 0; novoj < listaTransicoes.size(); novoj++) {
@@ -158,60 +168,95 @@ public class Aps2 {
 							String caractere = listaTransicoes.get(novoj).getCaractere();
 							String estadoSeguinte = listaTransicoes.get(novoj).getEstadoSeguinte();
 
-							System.out.println("CONTADOR INTERNO: " + contadorInterno + "\n");
+							System.out.println("TESTE 2 - CONTADOR INTERNO: " + contadorInterno + "\n");
 
-							System.out.println("CASO " + novoj + " VALORES DA LISTA DE TRANSICOES " + estadoAtual + " "
-									+ caractere + " " + estadoSeguinte + "\n");
+							System.out.println("TESTE 2 - CASO " + novoj + " VALORES DA LISTA DE TRANSICOES "
+									+ estadoAtual + " " + caractere + " " + estadoSeguinte + "\n");
 
-							System.out.println(
-									"CASO " + novoj + " VALORES PARA ANALISAR " + Proximo + " " + letraProximo + "\n");
+							System.out.println("TESTE 2 - CASO " + novoj + " VALORES PARA ANALISAR " + Proximo + " "
+									+ letraProximo + "\n");
 
-							System.out.println("CASO " + novoj + " ESTADO ATUAL DO PROXIMO: " + Proximo + " "
+							System.out.println("TESTE 2 - CASO " + novoj + " ESTADO ATUAL DO PROXIMO: " + Proximo + " "
 									+ estadoAtual + "\n");
 
-							System.out.println(
-									"CASO " + novoj + " LETRA DO PROXIMO: " + caractere + " " + letraProximo + "\n");
+							System.out.println("TESTE 2 - CASO " + novoj + " LETRA DO PROXIMO: " + caractere + " "
+									+ letraProximo + "\n");
 
 							if (contadorInterno < 2) {
 
 								if (Proximo.equals(estadoAtual) && caractere.equals(letraProximo)) {
 
-									if (arrayConjuntoEstadosFinais[novoi].equals(estadoSeguinte)) {
-										System.out.println("TRUE - AFD");
+									if (arrayConjuntoEstadosFinais[0].equals(estadoSeguinte)) {
+
+										System.out.println("TESTE 2 - ENCONTROU UM LIGAÇAO NO CASO " + novoj + " : "
+												+ estadoAtual + " " + caractere + " " + estadoSeguinte + "\n");
+
+										System.out.println("TESTE 2 - CHEGOU AO ESTADO FINAL: "
+												+ arrayConjuntoEstadosFinais[0] + "\n");
+
+										System.out.println("TESTE 2 - TRUE - AFD" + "\n");
+
 										situacao = true;
+
+										contadorInterno++;
+
 										break;
+
+									} else {
+
+										contadorInterno++;
+
+										contador++;
+
+										Proximo = estadoSeguinte;
+
+										System.out.println("TESTE 2 - ENCONTROU UM LIGAÇAO NO CASO " + novoj + " : "
+												+ estadoAtual + " " + caractere + " " + estadoSeguinte + "\n");
+
+										System.out.println("TESTE 2 - NAO CHEGOU AO ESTADO FINAL: "
+												+ arrayConjuntoEstadosFinais[novoi] + "\n");
+
+										System.out.println("TESTE 2 - ACIONANDO O CONTADOR: " + contador
+												+ " armazenando em Proximo o estado: " + Proximo + "\n");
 									}
 
-									contadorInterno++;
-
-									System.out.println("TESTE 33 CASO " + novoj + " " + estadoAtual + " " + caractere
-											+ " " + estadoSeguinte);
-
-									Proximo = estadoSeguinte;
-
-									contador++;
-
-									System.out.println("ACIONANDO O CONTADOR: " + contador);
-
+								} else {
+									System.out.println("TESTE 2 - NAO ENCONTROU UM LIGAÇAO NO CASO " + novoj + " : "
+											+ estadoAtual + " " + caractere + " " + estadoSeguinte + "\n");
 								}
 
 							} else if (contadorInterno == 2) {
-								System.out.println("PARA AQUI - MUDA PARA AFN");
+
+								System.out.println(
+										"TESTE 2 - PRIMEIRO BREAK - MUDA PARA AFN - Contador Interno igual a : "
+												+ contadorInterno + "\n");
+
 								situacaoInterna = true;
+
 								break;
 							}
 						}
 					} else if (situacaoInterna == true) {
-						System.out.println("PARA AQUI2 - MUDA PARA AFN");
+
+						System.out.println("TESTE 2 - SEGUNDO BREAK - MUDA PARA AFN - Contador Interno igual a : "
+								+ contadorInterno + "\n");
+
 						situacao = false;
+
 						break;
+
 					}
 
 				}
 
 			} else if (contador >= 2 && Proximo != null && situacaoInterna != true) {
-				System.out.println("TRUE - AFD");
+
+				System.out.println("TESTE 3 - ANALISAR: " + contador + " " + Proximo + " " + situacaoInterna + "\n");
+
+				System.out.println("TESTE 3 - TRUE - AFD");
+
 				situacao = true;
+
 			}
 		}
 
