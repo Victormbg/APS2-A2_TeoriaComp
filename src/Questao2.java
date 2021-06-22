@@ -81,11 +81,164 @@ public class Questao2 {
 		boolean situacao = VerificarAFNouAFD(estadoInicial, arrayConjuntoEstadosFinais, arrayAlfabeto, listaTransicoes);
 
 		if (situacao == true) {
+
 			JOptionPane.showMessageDialog(null, ExibicaoAFD());
+
 		} else {
-			JOptionPane.showMessageDialog(null, ExibicaoAFN());
+
+			String texto = MontaAFD(estadoInicial, arrayConjuntoEstadosFinais, arrayAlfabeto, listaTransicoes);
+
+			JOptionPane.showMessageDialog(null, texto);
 		}
 
+	}
+
+	public static String MontaAFD(String estadoInicial, String[] arrayConjuntoEstadosFinais, String[] arrayAlfabeto,
+			List<Transicao> listaTransicoes) {
+
+		String[] lista = new String[10];
+
+		System.out.println("ENTROU");
+
+		// DECLARACOES PARA PRIMEIRO ESTADO
+
+		String ProximoEstado = null;
+
+		String[] ArraySeguinteA = new String[arrayAlfabeto.length];
+		String[] ArraySeguinteB = new String[arrayAlfabeto.length];
+
+		int contadorArrayIF = -1, contadorArrayELSE = -1;
+
+		int estado = 0;
+
+		for (int i = 0; i < arrayAlfabeto.length; i++) {
+
+			String letraInicial = arrayAlfabeto[i];
+
+			System.out.println("ESTADO INICIAL - CASO: " + i + " " + letraInicial);
+
+			// PRIMEIRO ESTADO
+			for (int j = 0; j < listaTransicoes.size(); j++) {
+
+				String estadoAtual = listaTransicoes.get(j).getEstadoAtual();
+				String caractere = listaTransicoes.get(j).getCaractere();
+				String estadoSeguinte = listaTransicoes.get(j).getEstadoSeguinte();
+
+				if (estadoAtual.equals(estadoInicial) && caractere.equals(letraInicial)) {
+
+					System.out.println("TRANSICAO: " + j + " " + estadoInicial + letraInicial + estadoSeguinte);
+
+					if (!(estadoAtual.equals(estadoSeguinte))) {
+						System.out.println("PROXIMO ESTADO SERA: " + estadoSeguinte);
+						ProximoEstado = estadoSeguinte;
+					}
+
+					if ("a".equals(letraInicial)) {
+
+						System.out.println("ENTROU NO A: ");
+
+						contadorArrayELSE++;
+
+						ArraySeguinteA[contadorArrayELSE] = estadoSeguinte;
+
+						System.out.println(Arrays.toString(ArraySeguinteA));
+
+						System.out.println("VERIFICAR O ESTADO DA LISTA: " + estado);
+
+						lista[estado] = estadoInicial + letraInicial + Arrays.toString(ArraySeguinteA);
+
+						System.out.println("LISTA: " + Arrays.toString(lista));
+
+					} else if ("b".equals(letraInicial)) {
+
+						System.out.println("ENTROU NO B: ");
+
+						ArraySeguinteB = new String[arrayAlfabeto.length];
+
+						estado = i;
+
+						contadorArrayIF++;
+
+						ArraySeguinteB[contadorArrayIF] = estadoSeguinte;
+
+						System.out.println(Arrays.toString(ArraySeguinteB));
+
+						System.out.println("VERIFICAR O ESTADO DA LISTA: " + estado);
+
+						lista[estado] = estadoInicial + letraInicial + Arrays.toString(ArraySeguinteB);
+
+						System.out.println("LISTA: " + Arrays.toString(lista));
+
+					}
+
+				}
+
+			}
+		}
+
+		// DECLARACOES PARA PROXIMO ESTADO
+
+		// ArraySeguinte = new String[arrayAlfabeto.length];
+		contadorArrayIF = -1;
+		contadorArrayELSE = -1;
+		estado++;
+
+		for (int i = 0; i < arrayAlfabeto.length; i++) {
+
+			String letraInicial = arrayAlfabeto[i];
+
+			System.out.println("PROXIMO ESTADO - CASO: " + i + " " + letraInicial);
+
+			// PROXIMO ESTADO
+			for (int j = 0; j < listaTransicoes.size(); j++) {
+
+				String estadoAtual = listaTransicoes.get(j).getEstadoAtual();
+				String caractere = listaTransicoes.get(j).getCaractere();
+				String estadoSeguinte = listaTransicoes.get(j).getEstadoSeguinte();
+
+				if (estadoAtual.equals(ProximoEstado) && caractere.equals(letraInicial)) {
+
+					System.out.println("TRANSICAO: " + j + " " + ProximoEstado + letraInicial + estadoSeguinte);
+
+					/*
+					 * if (!(estadoAtual.equals(estadoSeguinte))) {
+					 * System.out.println("PROXIMO ESTADO SERA: " + estadoSeguinte); ProximoEstado =
+					 * estadoSeguinte; }
+					 */
+
+					if ("a".equals(letraInicial)) {
+
+						System.out.println("VERIFICAR O ESTADO DA LISTA: " + estado);
+
+						lista[estado] = estadoInicial + ProximoEstado + letraInicial + Arrays.toString(ArraySeguinteA)
+								+ estadoSeguinte;
+
+						System.out.println("LISTA: " + Arrays.toString(lista));
+
+					} else if ("b".equals(letraInicial)) {
+
+						estado++;
+
+						System.out.println("VERIFICAR O ESTADO DA LISTA: " + estado);
+
+						lista[estado] = estadoInicial + ProximoEstado + letraInicial + Arrays.toString(ArraySeguinteB);
+
+						System.out.println("LISTA: " + Arrays.toString(lista));
+
+					}
+
+				}
+
+			}
+
+		}
+		String exibicao = "";
+		exibicao += " ===================================================\n";
+		exibicao += "AFD Equivalente gerado pelo programa:\n";
+		exibicao += Arrays.toString(lista);
+		exibicao += "\n ===================================================";
+
+		return exibicao;
 	}
 
 	public static boolean VerificarAFNouAFD(String estadoInicial, String[] arrayConjuntoEstadosFinais,
@@ -218,6 +371,12 @@ public class Questao2 {
 
 										System.out.println("TESTE 2 - ACIONANDO O CONTADOR: " + contador
 												+ " armazenando em Proximo o estado: " + Proximo + "\n");
+
+										// TESTES
+
+										String palavra = estadoAtual + " " + caractere + " " + estadoSeguinte;
+
+										System.out.println("PALAVRA: " + palavra + "\n");
 									}
 
 								} else {
@@ -267,7 +426,7 @@ public class Questao2 {
 	public static String ExibicaoAFD() {
 		String exibicao = "";
 		exibicao += " ===================================================\n";
-		exibicao += "É um AFD";
+		exibicao += "AFD não é valido.";
 		exibicao += "\n ===================================================";
 		return exibicao;
 	}
